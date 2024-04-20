@@ -175,7 +175,7 @@ namespace MyCheeseShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cheeses");
+                    b.ToTable("Cheeses", (string)null);
                 });
 
             modelBuilder.Entity("MyCheeseShop.Model.Order", b =>
@@ -197,7 +197,7 @@ namespace MyCheeseShop.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("MyCheeseShop.Model.OrderItem", b =>
@@ -221,7 +221,7 @@ namespace MyCheeseShop.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("MyCheeseShop.Model.User", b =>

@@ -1,0 +1,24 @@
+﻿<h3>StoreItem</h3>
+
+@foreach (var cheese in FilteredCheeses)
+{
+    <div class="col">
+        <StoreItem Cheese="cheese" />
+    </div>
+}
+@if (!FilteredCheeses.Any())
+{
+    <p>No cheeses found 😔</p>
+}
+
+<EditForm Model="quantity" OnSubmit="AddToCart">
+    <div class="row">_</div>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public Cheese Cheese { get; set; }
+
+    private int quantity = 1;
+}

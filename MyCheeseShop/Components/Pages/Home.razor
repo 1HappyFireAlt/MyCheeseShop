@@ -7,6 +7,15 @@
 
 <h1>Hello, world!</h1>
 
+@if (cheeses is null)
+{
+    <p>Loading....</p>
+}
+else if (!cheeses.Any())
+{
+    <p>No cheeses found 😔</p>
+}
+
 @code
 {
     private IEnumerable<Cheese> cheeses;
