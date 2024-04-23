@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using MyCheeseShop.Context
 @using MyCheeseShop.Model
+@inject NavigationManager NavigationManager
 @inject CheeseProvider CheeseProvider
 
 <PageTitle>Home</PageTitle>
@@ -18,6 +19,10 @@ else if (!cheeses.Any())
 
 @code
 {
+    private void GoToCart()
+    {
+        NavigationManager.NavigateTo("/cart");
+    }
     private IEnumerable<Cheese> cheeses;
 
     protected override async Task OnInitializedAsync()
