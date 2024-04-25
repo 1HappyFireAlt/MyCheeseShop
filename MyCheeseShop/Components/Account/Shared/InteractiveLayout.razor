@@ -6,5 +6,24 @@
 @inject ProtectedSessionStorage ProtectedSessionStorage
 
 @code {
-
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            var result = await ProtectedSessionStorage.GetAsync<List<CartItem>>("cart");
+            var items = result.Success ? result.Value : null;
+            if (items is not null && items.Any())
+            {
+                items.ForEach(item =>
+                {
+                    var existing = DatabaseContext.Cheeses.Local.FirstOrDefault(cheese => cheese.Id == item.Cheese.Id);
+                    if (existing == null)
+                    {
+                        DatabaseContext.Cheeses.Attach(item.Cheese);
+                    }
+                });
+                ShoppingCart.SetItems(items);
+            }
+        }
+    }
 }

@@ -28,6 +28,7 @@ builder.Services.AddScoped<ShoppingCart>();
 builder.Services.AddScoped<DatabaseSeeder>();
 builder.Services.AddScoped<CheeseProvider>();
 builder.Services.AddScoped<ShoppingCart>();
+builder.Services.AddScoped<OrderProvider>();
 
 builder.Services.AddIdentityCore<User>()
     .AddRoles<IdentityRole>()

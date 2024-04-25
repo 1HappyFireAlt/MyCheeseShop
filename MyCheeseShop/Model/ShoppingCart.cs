@@ -44,5 +44,11 @@
             return _items;
         }
          public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+
+        public void SetItems(IEnumerable<CartItem> items)
+        {
+            _items = items.ToList();
+            OnCartUpdated?.Invoke();
+        }
     }
 }

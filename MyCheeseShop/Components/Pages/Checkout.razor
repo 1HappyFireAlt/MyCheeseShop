@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using MyCheeseShop.Context
+@using MyCheeseShop.Model
+@attribute [Authorize]
+@inject OrderProvider OrderProvider
+@inject ShoppingCart ShoppingCart
+@inject NavigationManager NavigationManager
+@inject ProtectedSessionStorage ProtectedSessionStorage
+
+@code {
+    private async Task MakePayment()
+    {
+        await StimulatePayment();
+
+        await OrderProvider.CreateOrder(User, ShoppingCart.GetItems());
+        ShoppingCart.Clear();
+        NavigationManager.NavigateTo("/thank-you");
+    }
+}
