@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Components\Account\Shared\StoreItem.razor" />
+    <None Include="Components\Shared\StoreItem.razor" />
   </ItemGroup>
 
 </Project>

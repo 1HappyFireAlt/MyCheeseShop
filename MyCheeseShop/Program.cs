@@ -27,6 +27,7 @@ builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddScoped<ShoppingCart>();
 builder.Services.AddScoped<DatabaseSeeder>();
 builder.Services.AddScoped<CheeseProvider>();
+builder.Services.AddScoped<UserProvider>();
 builder.Services.AddScoped<ShoppingCart>();
 builder.Services.AddScoped<OrderProvider>();
 

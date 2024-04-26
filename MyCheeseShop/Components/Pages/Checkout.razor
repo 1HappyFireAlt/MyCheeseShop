@@ -1,20 +1,37 @@
-﻿@using Microsoft.AspNetCore.Authorization
+﻿@page "/checkout"
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @using MyCheeseShop.Context
 @using MyCheeseShop.Model
 @attribute [Authorize]
+@inject UserProvider UserProvider
 @inject OrderProvider OrderProvider
 @inject ShoppingCart ShoppingCart
 @inject NavigationManager NavigationManager
 @inject ProtectedSessionStorage ProtectedSessionStorage
 
 @code {
+    private User user;
+    private EditContext editContext;
+    private bool isPaying;
+
     private async Task MakePayment()
     {
-        await StimulatePayment();
+        await SimulatePayment();
 
-        await OrderProvider.CreateOrder(User, ShoppingCart.GetItems());
+        await OrderProvider.CreateOrder(user, ShoppingCart.GetItems());
         ShoppingCart.Clear();
         NavigationManager.NavigateTo("/thank-you");
+    }
+
+    private async Task SimulatePayment()
+    {
+        isPaying = true;
+        StateHasChanged();
+
+        await Task.Delay(2000);
+
+        isPaying = false;
+        StateHasChanged();
     }
 }

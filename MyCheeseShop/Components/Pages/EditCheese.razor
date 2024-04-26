@@ -1,0 +1,11 @@
+﻿@page "/edit-cheese"
+@using Microsoft.AspNetCore.Authorization
+@using MyCheeseShop.Context
+@inject CheeseProvider CheeseProvider
+@attribute [Authorize(Roles = "Admin")]
+
+<PageTitle>EasyBriezy - Edit Cheese</PageTitle>
+
+@code {
+
+}

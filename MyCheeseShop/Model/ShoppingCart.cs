@@ -5,8 +5,8 @@
         public event Action? OnCartUpdated;
         private List<CartItem> _items;
 
-        public ShoppingCart() 
-        { 
+        public ShoppingCart()
+        {
             _items = [];
         }
 
@@ -43,12 +43,24 @@
         {
             return _items;
         }
-         public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
 
         public void SetItems(IEnumerable<CartItem> items)
         {
             _items = items.ToList();
             OnCartUpdated?.Invoke();
+        }
+
+        public void Clear()
+        {
+            _items.Clear();
+            OnCartUpdated?.Invoke();
+        }
+
+        public int GetQuantity(Cheese cheese)
+        {
+            var item = _items.FirstOrDefault(item => item.Cheese.Id == cheese.Id);
+            return item?.Quantity ?? 0;
         }
     }
 }
