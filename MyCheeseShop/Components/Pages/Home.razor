@@ -6,7 +6,7 @@
 @inject CheeseProvider CheeseProvider
 @inject ShoppingCart ShoppingCart
 
-<PageTitle>Home</PageTitle>
+<PageTitle>CheeseShop - World's Greatest Cheeses'</PageTitle>
 
 @if (cheeses is null)
 {
@@ -31,6 +31,9 @@ else if (!cheeses.Any())
 @code
 {
     private IEnumerable<Cheese> cheeses;
+    private string searchTerm = "";
+    private SortCriteria sortCriteria = SortCriteria.Name;
+
     private IEnumerable<Cheese> filteredCheeses;
     private IEnumerable<Cheese> FilteredCheeses
     {
@@ -50,13 +53,25 @@ else if (!cheeses.Any())
         filteredCheeses = cheeses;
         ShoppingCart.OnCartUpdated += StateHasChanged;
     }
-    private string searchTerm = "";
-    
 
     private void GoToCart()
     {
         NavigationManager.NavigateTo("/cart");
     }
+
+    private void Sort(SortCriteria criteria)
+    {
+        sortCriteria = criteria;
+        filteredCheeses = criteria switch
+        {
+            SortCriteria.Name => FilteredCheeses = filteredCheeses.OrderBy(c => c.Name),
+            SortCriteria.Price => FilteredCheeses = filteredCheeses.OrderBy(c => c.Price),
+            SortCriteria.Type => FilteredCheeses = filteredCheeses.OrderBy(c => c.Type),
+            SortCriteria.Strength => FilteredCheeses = filteredCheeses.OrderBy(c => c.Strength),
+            _ => filteredCheeses
+        };
+    }
+
     private bool GetSearchCriteria(Cheese cheese)
     {
         if (string.IsNullOrWhiteSpace(searchTerm)) return true;
@@ -65,5 +80,13 @@ else if (!cheeses.Any())
             || cheese.Type.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
             || cheese.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
             || cheese.Strength.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private enum SortCriteria
+    {
+        Name,
+        Price,
+        Type,
+        Strength
     }
 }

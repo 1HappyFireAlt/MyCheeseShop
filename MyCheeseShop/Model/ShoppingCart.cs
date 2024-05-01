@@ -38,17 +38,23 @@
             }
             OnCartUpdated?.Invoke();
         }
+        
+
+        public int Count()
+        {
+            // return the number of items in the cart
+            return _items.Count;
+        }
+
+        public decimal Total()
+        {
+            // sum the price of all items in the cart
+            return _items.Sum(item => item.Cheese.Price * item.Quantity);
+        }
 
         public IEnumerable<CartItem> GetItems()
         {
             return _items;
-        }
-        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
-
-        public void SetItems(IEnumerable<CartItem> items)
-        {
-            _items = items.ToList();
-            OnCartUpdated?.Invoke();
         }
 
         public void Clear()
@@ -61,6 +67,11 @@
         {
             var item = _items.FirstOrDefault(item => item.Cheese.Id == cheese.Id);
             return item?.Quantity ?? 0;
+        }
+        public void SetItems(IEnumerable<CartItem> items)
+        {
+            _items = items.ToList();
+            OnCartUpdated?.Invoke();
         }
     }
 }

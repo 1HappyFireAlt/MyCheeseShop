@@ -56,7 +56,7 @@ namespace MyCheeseShop.Context
         {
             return
             [
-                new Cheese { Name = "Cheddar", Type = "Hard", Description = "Sharp and tangy", Strength = "Medium", Price = 8.99m },
+                new Cheese { Name = "Cheddar", Type = "Hard", Description = "Sharp and tangy", Strength = "Medium", Price = 8.99m, ImageUrl = "cheddar.png"},
                 new Cheese { Name = "Brie", Type = "Soft", Description = "Creamy and buttery", Strength = "Mild", Price = 10.50m },
                 new Cheese { Name = "Gouda", Type = "Semi-Hard", Description = "Rich and nutty", Strength = "Medium", Price = 9.75m },
                 new Cheese { Name = "Blue Cheese", Type = "Soft", Description = "Strong and pungent", Strength = "Strong", Price = 12.25m },
