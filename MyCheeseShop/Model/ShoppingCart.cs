@@ -22,7 +22,6 @@
         }
         public void RemoveItem(Cheese cheese)
         {
-            // remove the cheese from the cart
             _items.RemoveAll(item => item.Cheese.Id == cheese.Id);
             OnCartUpdated?.Invoke();
         }
@@ -42,13 +41,11 @@
 
         public int Count()
         {
-            // return the number of items in the cart
             return _items.Count;
         }
 
         public decimal Total()
         {
-            // sum the price of all items in the cart
             return _items.Sum(item => item.Cheese.Price * item.Quantity);
         }
 

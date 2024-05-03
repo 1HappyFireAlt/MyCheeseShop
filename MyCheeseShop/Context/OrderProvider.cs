@@ -1,4 +1,5 @@
-﻿using MyCheeseShop.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using MyCheeseShop.Model;
 using SQLitePCL;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -8,6 +9,12 @@ namespace MyCheeseShop.Context
     public class OrderProvider
     {
         private readonly DatabaseContext _context;
+
+        public OrderProvider(DatabaseContext context)
+        {
+            _context = context;
+        }
+
         public async Task CreateOrder(User user, IEnumerable<CartItem> items)
         {
             var order = new Order
@@ -26,4 +33,5 @@ namespace MyCheeseShop.Context
             await _context.SaveChangesAsync();
         }
     }
+
 }

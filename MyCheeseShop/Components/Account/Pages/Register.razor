@@ -18,31 +18,89 @@
 <PageTitle>Register</PageTitle>
 <StatusMessage Message="@statusMessage" IsError="@isError" />
 
-<div class="card">
-    <div class="card-body bg-light">
-        <h4 class="card-title">Register</h4>
+<h3>Register</h3>
+<EditForm OnValidSubmit="RegisterUser" Model="Model" FormName="registerForm">
+    <DataAnnotationsValidator />
 
-        <EditForm OnValidSubmit="RegisterUser" Model="Model" FormName="registerForm">
-            <div class="row g-3">
-                <div class="col-md-12">
-                    <label for="email" class="form-label">Email</label>
-                    <InputText class="form-control" placeholder="Email" @bind-Value="Model.Email" />
-                </div>
-                <div class="col-md-6">
-                    <label for="password" class="form-label">Password</label>
-                    <InputText type="password" class="form-control" placeholder="Password" @bind-Value="Model.Password" />
-                </div>
-                <div class="col-md-6">
-                    <label for="name" class="form-label">Confirm Password</label>
-                    <InputText type="password" class="form-control" placeholder="Confirm Password" @bind-Value="Model.ConfirmPassword" />
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">Register</button>
+    <div class="row">
+        <div class="col-lg-6 col-12 mt-lg-1 mt-1">
+            <div class="card h-100">
+                <div class="card-body bg-light">
+                    <h5 class="card-title">About you</h5>
+                    <div class="form-group mb-2">
+                        <label for="firstname">First Name</label>
+                        <InputText id="firstname" class="form-control" placeholder="First Name" @bind-Value="Model.FirstName" />
+                        <div class="small">
+                            <ValidationMessage For="@(() => Model!.FirstName)" />
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="lastname">Last Name</label>
+                        <InputText id="lastname" class="form-control" placeholder="Last Name" @bind-Value="Model.LastName" />
+                        <div class="small">
+                            <ValidationMessage For="@(() => Model!.LastName)" />
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="street">Street</label>
+                        <InputText id="street" class="form-control" placeholder="Street" @bind-Value="Model.Address" />
+                        <div class="small">
+                            <ValidationMessage For="@(() => Model!.Address)" />
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="city">City</label>
+                        <InputText id="city" class="form-control" placeholder="City" @bind-Value="Model.City" />
+                        <div class="small">
+                            <ValidationMessage For="@(() => Model!.City)" />
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="postcode">Post Code</label>
+                        <InputText id="postcode" class="form-control" placeholder="Post Code" @bind-Value="Model.PostCode" />
+                        <div class="small">
+                            <ValidationMessage For="@(() => Model!.PostCode)" />
+                        </div>
+                    </div>
                 </div>
             </div>
-        </EditForm>
+        </div>
+        <div class="col-lg-6 col-12 mt-1">
+            <div class="card h-100">
+                <div class="card-body bg-light d-flex flex-column">
+                    <h5 class="card-title">Login details</h5>
+
+                    <div class="form-group mb-2">
+                        <label for="email">Email</label>
+                        <InputText id="email" class="form-control" placeholder="you@example.com" @bind-Value="Model.Email" />
+                        <div class="small">
+                            <ValidationMessage For="@(() => Model!.Email)" />
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="password">Password</label>
+                        <InputText id="password" type="password" class="form-control" placeholder="Password" @bind-Value="Model.Password" />
+                        <div class="small">
+                            <ValidationMessage For="@(() => Model!.Password)" />
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="confirm">Confirm Password</label>
+                        <InputText id="confirm" type="password" class="form-control" placeholder="Confirm Password" @bind-Value="Model.ConfirmPassword" />
+                        <div class="small">
+                            <ValidationMessage For="@(() => Model!.ConfirmPassword)" />
+                        </div>
+                    </div>
+                    <div class="mt-auto mb-2">
+                        <button type="submit" class="btn btn-outline-primary w-100">  Register</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+</EditForm>
+
 
 @code {
     private IEnumerable<IdentityError>? identityErrors;
@@ -69,7 +127,6 @@
                 PostCode = Model.PostCode
             };
         var result = await UserManager.CreateAsync(user, Model.Password);
-        await UserManager.AddToRoleAsync(user, "Customer");
 
         if (!result.Succeeded)
         {
@@ -77,11 +134,11 @@
             isError = true;
             return;
         }
+        await UserManager.AddToRoleAsync(user, "Customer");
 
         Logger.LogInformation("User created a new account with password.");
 
         var userId = await UserManager.GetUserIdAsync(user);
-
         await SignInManager.SignInAsync(user, isPersistent: false);
         RedirectManager.RedirectTo(ReturnUrl);
     }
