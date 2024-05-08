@@ -14,7 +14,27 @@ namespace MyCheeseShop.Context
         {
             _context = context;
         }
+        public async Task<List<Order>?> GetOrdersAsync(User? user)
+        {
+            if (user == null) return null;
 
+            return await _context.Orders
+                .Where(order => order.User.UserName == user.UserName)
+                .Include(order => order.Items)
+                .ThenInclude(item => item.Cheese)
+                .OrderByDescending(order => order.Created)
+                .ToListAsync();
+        }
+
+        public async Task<List<Order>?> GetAllOrdersAsync()
+        {
+            return await _context.Orders
+                .Include(order => order.User)
+                .Include(order => order.Items)
+                .ThenInclude(item => item.Cheese)
+                .OrderByDescending(order => order.Created)
+                .ToListAsync();
+        }
         public async Task CreateOrder(User user, IEnumerable<CartItem> items)
         {
             var order = new Order
@@ -32,6 +52,18 @@ namespace MyCheeseShop.Context
            _context.Orders.Add(order);
             await _context.SaveChangesAsync();
         }
-    }
+        public async Task DispatchOrder(Order order)
+        {
+            order.Status = OrderStatus.Dispatched;
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+        }
 
+        public async Task CancelOrder(Order order)
+        {
+            order.Status = OrderStatus.Cancelled;
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+        }
+    }
 }
