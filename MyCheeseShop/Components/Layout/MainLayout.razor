@@ -9,7 +9,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="/"> CheeseShop </a>
+        <a class="navbar-brand" href="/">🧀CheeseShop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -30,6 +30,10 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li class="nav-item">
                                         <NavLink class="dropdown-item" href="/all-orders" Match="NavLinkMatch.All">All Orders</NavLink>
+                                    </li>
+                                    <div class="dropdown-divider"></div>
+                                    <li class="nav-item">
+                                        <NavLink class="dropdown-item" href="/customers" Match="NavLinkMatch.All">Customers</NavLink>
                                     </li>
                                     <div class="dropdown-dividor"></div>
                                     <li>
@@ -52,15 +56,15 @@
                             Welcome, @user!.FirstName!
                         </span>
                         <li class="nav-item">
-                            <NavLink class="btn btn-outline-danger" href="/Account/Logout" Match="NavLinkMatch.All"> Logout </NavLink>
+                            <NavLink class="btn btn-outline-danger" href="/Account/Logout" Match="NavLinkMatch.All">🔐Logout</NavLink>
                         </li>
                     </Authorized>
                     <NotAuthorized>
                         <li class="nav-item me-1">
-                            <NavLink class="btn btn-outline-primary" href="Account/Login" Match="NavLinkMatch.Prefix"> Login </NavLink>
+                            <NavLink class="btn btn-outline-primary" href="Account/Login" Match="NavLinkMatch.Prefix">🔑Login</NavLink>
                         </li>
                         <li class="nav=item mt-1 mt-md-0">
-                            <NavLink class="btn btn-outline-success" href="Account/Register" Match="NavLinkMatch.Prefix"> Register </NavLink>
+                            <NavLink class="btn btn-outline-success" href="Account/Register" Match="NavLinkMatch.Prefix">🔧Register</NavLink>
                         </li>
                     </NotAuthorized>
                 </AuthorizeView>
@@ -88,5 +92,10 @@
         {
             user = UserProvider.GetUserByUsername(username)!;
         }
+    }
+
+    private string GetFormattedName(User user)
+    {
+        return $"{user.FirstName} {user.LastName}";
     }
 }

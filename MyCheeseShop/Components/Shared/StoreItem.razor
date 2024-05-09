@@ -12,9 +12,9 @@
             <span class="badge bg-primary">@Cheese.Type</span>
             <span class="badge bg-success">@Cheese.Strength</span>
         </h5>
+        <h5><span class="badge bg-danger">@Cheese.Price.ToString("C")</span></h5>
         <div class="d-flex flex-column flex-sm-row justify-content-betweem">
             <h5 class="card-title">@Cheese.Name</h5>
-            <h5><span class="badge bg-danger">@Cheese.Price.ToString("C")</span></h5>
         </div>
         <p class="card-text">@Cheese.Description</p>
         <div class="mt-auto">

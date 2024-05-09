@@ -15,7 +15,7 @@
 
 <div class="card">
     <div class="card-body bg-light">
-        <h4 class="card-title">Login</h4>
+        <h4 class="card-title">🔑Login</h4>
         <EditForm OnValidSubmit="LoginUser" Model="Model" FormName="loginForm">
             <div class="row g-3">
                 <div class="col-md-6">
@@ -27,11 +27,11 @@
                     <InputText type="password" @bind-Value="Model.Password" class="form-control" placeholder="Password" />
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                    <button type="submit" class="btn btn-primary w-100">🔑Login</button>
 
                 </div>
                 <div class="col-md-2">
-                    <a href="@(NavigationManager.ToAbsoluteUri("Account/Register"))" class="btn btn-success w-100">Register</a>
+                    <a href="@(NavigationManager.ToAbsoluteUri("Account/Register"))" class="btn btn-success w-100">🔧Register</a>
                 </div>
             </div>
         </EditForm>
