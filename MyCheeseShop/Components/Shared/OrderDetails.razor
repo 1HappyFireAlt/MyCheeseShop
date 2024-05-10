@@ -1,0 +1,66 @@
+﻿@using MyCheeseShop.Model
+
+﻿@if (Order is null)
+{
+    <p>Select an order...</p>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-evenly flex-wrap">
+                <div>
+                    <h5><span class="badge text-bg-success">Order: @Order.Id</span></h5>
+                </div>
+                <div>
+                    <h5><span class="badge text-bg-dark">@Order.Created.ToString("U")</span></h5>
+                </div>
+                <div>
+                    <h5><span class="badge @GetStatusColour(Order.Status)">@Order.Status.ToString()</span></h5>
+                </div>
+            </div>
+            <div class="d-flex justify-content-evenly flex-wrap">
+                <div>
+                    <h5><span class="badge text-bg-danger">Total: @Order.Total.ToString("C")</span></h5>
+                </div>
+                <div>
+                    <h5><span class="badge text-bg-info">@($"{Order.User.FirstName} {Order.User.LastName}")</span></h5>
+                </div>
+                <div class="hide-on-small">
+                    <h5><span class="badge text-bg-warning">@($"{Order.User.Address}, {Order.User.City}, {Order.User.PostCode}")</span></h5>
+                </div>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush">
+            @foreach (OrderItem item in Order.Items)
+            {
+                <li class="list-group-item">
+                    <div class="card-container">
+                        <img src="/img/cheeses/@item.Cheese.ImageUrl" class="img-thumbnail card-img-left" alt="@item.Cheese.Name" onerror="this.onerror = null; this.src='/img/no_cheese.png'">
+                        <div class="card-body-flex">
+                            <h5 class="card-title">@item.Cheese.Name</h5>
+                            <p class="card-text">Quantity: @(item.Quantity * 100)g</p>
+                            <p class="card-text">Price: @item.Cheese.Price.ToString("C") per 100g</p>
+                            <h6 class="card-text">Total: @item.Total.ToString("C")</h6>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
+@code {
+    [Parameter]
+    public Order? Order { get; set; }
+
+    private string GetStatusColour(OrderStatus status)
+    {
+        return status switch
+        {
+            OrderStatus.Placed => "bg-primary",
+            OrderStatus.Dispatched => "bg-success",
+            OrderStatus.Cancelled => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+}
