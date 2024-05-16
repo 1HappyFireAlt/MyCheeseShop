@@ -30,10 +30,57 @@ else
 
     <CheeseForm Cheese="selectedCheese" />
 }
-
+<EditForm OnValidSubmit="Submit" EditContext="editContext">
+    <div class="row">
+        <div class="col-lg-6 col-12 mt-1">
+            <div class="card h-100">
+                <div class="card-body bg-light d-flex flex-column">
+                    <h4 class="card-title">Cheese details</h4>
+                    <div class="form-group mb-2">
+                        <label for="name">Name</label>
+                        <input id="name" placeholder="Name" name="Model.Name" class="form-control valid" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="type">Type</label>
+                        <input id="type" placeholder="Type" name="Model.Type" class="form-control valid" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="description">Description</label>
+                        <input id="description" placeholder="Description" name="Model.Description" class="form-control valid" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="strength">Strength</label>
+                        <input id="strength" placeholder="Strength" name="Model.Strength" class="form-control valid" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="price">Price</label>
+                        <input id="price" placeholder="9.99" min="0.01" max="10000.00" step="0.01" type="number" name="Model.Price" class="form-control valid" />
+                    </div>
+                </div>
+            </div>
+            <div class="mt-auto">
+                <button type="submit" class="btn btn-outline-primary w-100">Update Cheese</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-12 mt-1">
+        <div class="form-group mb-2">
+            <div class="card-body bg-light d-flex flex-column">
+                <h4 class="card-title">Cheese image</h4>
+                <div class="form-group mb-2">
+                    <input id="imageUrl" class="form-control" value="Cheese.ImageUrl" type="file" />
+                </div>
+                <div class="mb-2">
+                    <img src="~/img/cheeses/Cheese.ImageUrl" class="img-thumbnail card-img-left" alt="Cheese.Name" onerror="this.onerror = null; this.src='/img/no_cheese.png'">
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
 @code {
     private IEnumerable<Cheese>? cheeses;
     private int? selectedCheeseId;
+    private EditContext editContext;
     private Cheese? selectedCheese;
 
     protected async override Task OnInitializedAsync()
@@ -42,6 +89,9 @@ else
         selectedCheese = cheeses?.FirstOrDefault();
         selectedCheeseId = selectedCheese?.Id;
     }
+
+    private async Task Submit()
+    {}
 
     private void OnCheeseSelected(ChangeEventArgs e)
     {
