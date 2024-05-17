@@ -30,6 +30,8 @@ builder.Services.AddScoped<CheeseProvider>();
 builder.Services.AddScoped<UserProvider>();
 builder.Services.AddScoped<ShoppingCart>();
 builder.Services.AddScoped<OrderProvider>();
+builder.Services.AddScoped<FileUploader>();
+
 
 builder.Services.AddIdentityCore<User>()
     .AddRoles<IdentityRole>()
